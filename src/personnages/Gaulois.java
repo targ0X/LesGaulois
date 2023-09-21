@@ -26,7 +26,8 @@ public class Gaulois {
 		System.out.println(nom+"envoie un grand coup dans la mâchoire de "+ romain.getNom());
 	}
 	public static void main(String[] args) {
-		//TODO main test la classe gaulois 
+		Gaulois asterix = new Gaulois("Asterix",8);
+		System.out.println(asterix);
 	}
 }
 
