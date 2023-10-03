@@ -17,24 +17,39 @@ public class Village {
 	public void setChef(Chef chef) {
 	this.chef = chef;
 	}
-	
+	public String toString(Gaulois gaulois) {
+		return gaulois.getNom();
+	}
 	public String getNom() {
 	return nom;
 	}
-	
-	public void ajouterHabitant(Gaulois personneaajouter ) {
-		villageois[nbVillageois] = personneaajouter;
+	public void ajouterHabitant(Gaulois gaulois ) {
+		villageois[nbVillageois] = gaulois;
 		nbVillageois++;
 	}
 	public Gaulois trouverHabitant(int indice) {
 		return villageois[indice];
+	}
+	public void afficherVillageois(Chef chef) {
+		System.out.println("Dans le Village du chef "+ chef +" vivent les légendaires gaulois :");
+		for (int i = 0; i < nbVillageois; i++) {
+			System.out.println("- "+toString(villageois[i]));
+		}
 	}
 	public static void main(String[] args) {
 	Village village = new Village("Village des Irréductibles",30);
 //	Gaulois gaulois = village.trouverHabitant(30);
 //	index qui n'est pas dans le tableau car valeur de l'indice 0 à 29
 	Chef abraracourcix = new Chef ("Abraracourcix",6,village);
-	ajouterHabitant(abraracourcix);
-	
+	Gaulois asterix = new Gaulois ("Astérix",8);
+	Gaulois obelix = new Gaulois ("Obélix",25);
+	village.setChef(abraracourcix);
+//	village.ajouterHabitant(abraracourcix); impossible car type Chef et non Gaulois
+	village.ajouterHabitant(asterix);
+	village.ajouterHabitant(obelix);
+//	Gaulois gaulois = village.trouverHabitant(0);
+//	System.out.println(gaulois);
+//  null car pas de gaulois a cet endroit la
+	village.afficherVillageois(abraracourcix);
 	}
 }
