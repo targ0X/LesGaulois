@@ -48,5 +48,9 @@ public class Romain {
 	}
 	public static void main(String[] args) {
 		Romain minus = new Romain("Minus",6);
+		System.out.println("Les équipements sont :");
+		for (Equipement equipement : Equipement.values()){
+			System.out.println("- " + equipement);
+		}
 	}
 }
