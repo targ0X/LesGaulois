@@ -17,9 +17,8 @@ public class Village {
 	public void setChef(Chef chef) {
 	this.chef = chef;
 	}
-	public String toString(Gaulois gaulois) {
-		return gaulois.getNom();
-	}
+
+	
 	public String getNom() {
 	return nom;
 	}
@@ -33,7 +32,7 @@ public class Village {
 	public void afficherVillageois(Chef chef) {
 		System.out.println("Dans le Village du chef "+ chef +" vivent les légendaires gaulois :");
 		for (int i = 0; i < nbVillageois; i++) {
-			System.out.println("- "+toString(villageois[i]));
+			System.out.println("- "+villageois[i].getNom());
 		}
 	}
 	public static void main(String[] args) {

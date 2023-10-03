@@ -4,9 +4,11 @@ public class Romain {
 	public Romain(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
+		assert forcePositive();
 	}
 	private String nom;
 	private int	force;
+	private int force2;
 	
 	public String getNom() {
 		return nom;
@@ -20,11 +22,31 @@ public class Romain {
 		return "Le romain " + nom + ":";
 	}
 	public void recevoirCoup(int forceCoup) {
-		force-=forceCoup;
-		if (force>0) {
+		assert forcePositive();
+	    force2 = force;
+		force2-=forceCoup;
+		if (force2>0) {
 			parler("Aïe");
 		} else {
 			parler("J'abandonne...");
 		}
+		assert forceDiminuee();
+	}
+	private boolean forcePositive() {
+		if (force<0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	private boolean forceDiminuee() {
+		if (force2>=force) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	public static void main(String[] args) {
+		Romain minus = new Romain("Minus",6);
 	}
 }
