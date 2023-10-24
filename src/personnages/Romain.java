@@ -5,10 +5,10 @@ public class Romain {
 	public Romain(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
-		EQuipement = new Equipement[nbequipementmax];
+		EQuipement = new Equipement[NBEQUIPEMENTMAX];
 		assert forcePositive();
 	}
-	private static final int nbequipementmax=2;
+	private static final int NBEQUIPEMENTMAX=2;
 	private String nom;
 	private int	force;
 	private int force2;
@@ -16,7 +16,6 @@ public class Romain {
 	private Equipement[] EQuipement;
 	private int nbEquipement=0;
 	
-	private String texte;
 	
 	public String getNom() {
 		return nom;
@@ -46,7 +45,7 @@ public class Romain {
 		// pr√©condition
 		assert force > 0;
 		int oldForce = force;
-		forceCoup = CalculResistanceEquipement(forceCoup);
+		forceCoup = calculResistanceEquipement(forceCoup);
 		force -= forceCoup;
 		// if (force > 0) {
 		// parler("A√Øe");
@@ -54,35 +53,33 @@ public class Romain {
 		// equipementEjecte = ejecterEquipement();
 		// parler("J'abandonne...");
 		// }
-		switch (force) {
-		case 0:
-		parler("A√Øe");
-		default:
+		if (force==0) {
+			parler("Aie");
+		} else {
 			equipementEjecte = ejecterEquipement();
 			parler("J'abandonne...");
-			break;
 			}
 			// post condition la force a diminu√©e
 			assert force < oldForce;
 			return equipementEjecte;
 	}
 	
-	private int CalculResistanceEquipement(int forceCoup) {
+	private int calculResistanceEquipement(int forceCoup) {
+  String texte;
 		texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
 		int resistanceEquipement = 0;
-		if (!(nbEquipement == 0)) {
-		texte += "\nMais heureusement, grace √† mon √©quipement saforce est diminu√© de ";
-		for (int i = 0; i < nbEquipement;) {
-		if ((equipements[i] != null &&equipements[i].equals(Equipement.BOUCLIER)) == true) {
-		resistanceEquipement += 8;
-		} else {
-		System.out.println("Equipement casque");
-		resistanceEquipement += 5;
-		}
-		i++;
-		}
-		texte =+ resistanceEquipement + "!";
-		}
+		if (nbEquipement != 0) {
+			texte=texte+"\nMais heureusement, grace a mon eqquipement sa force est diminuÈe de ";
+			for (int i = 0; i < nbEquipement;i++) {
+				if ((EQuipement[i] != null && EQuipement[i].equals(Equipement.BOUCLIER))) {
+					resistanceEquipement += 8;
+					} else {
+						System.out.println("Equipement casque");
+						resistanceEquipement += 5;
+						}
+				}
+			texte += resistanceEquipement + "!";
+			}
 		parler(texte);
 		forceCoup -= resistanceEquipement;
 		return forceCoup;
@@ -91,53 +88,43 @@ public class Romain {
 	
 	private Equipement[] ejecterEquipement() {
 		Equipement[] equipementEjecte = new Equipement[nbEquipement];
-		System.out.println("L'√©quipement de " + nom.toString() + "s'envole sous la force du coup.");
-		//TODO
+		System.out.println("L'√©quipement de " + nom + "s'envole sous la force du coup.");
 		int nbEquipementEjecte = 0;
 		for (int i = 0; i < nbEquipement; i++) {
-			if (equipements[i] == null) {
-				continue;
-				} else {
+			if (EQuipement[i] != null) {
 				equipementEjecte[nbEquipementEjecte] =
-				equipements[i];
+				EQuipement[i];
 				nbEquipementEjecte++;
-				equipements[i] = null;
+				EQuipement[i] = null;
 				}
 			}
 				return equipementEjecte;
 }
 	
 	private boolean forcePositive() {
-		if (force<0) {
-			return false;
-		} else {
-			return true;
-		}
+		return (force<0);
 	}
+	
 	private boolean forceDiminuee() {
-		if (force2>=force) {
-			return false;
-		} else {
-			return true;
-		}
+		return (force2>=force); 
 	}
 	public void sEquiper(Equipement equipement) {
 		switch (nbEquipement) {
 		case 2:
-			System.out.println("Le soldat "+nom+" est d√©j√† bien prot√©g√© !");
+			System.out.println("Le soldat "+nom+" est dÈj‡†bien protÈgÈ !");
 			break;
 		case 1:
 			if (EQuipement[0]==equipement) {
-				System.out.println("Le soldat "+nom+" poss√®de d√©j√† "+equipement+" !");
+				System.out.println("Le soldat "+nom+" possËde dÈj‡† "+equipement+" !");
 			} else {
-				System.out.println("Le soldat "+ nom +" s'√©quipe avec un "+equipement);
+				System.out.println("Le soldat "+ nom +" s'Èquipe avec un "+equipement);
 				nbEquipement++;
 			}
 			break;
 		default:
 			EQuipement[nbEquipement]=equipement;
 			nbEquipement++;
-			System.out.println("Le soldat "+ nom +" s'√©quipe avec un "+equipement);
+			System.out.println("Le soldat "+ nom +" s'Èquipe avec un "+equipement);
 			break;
 		}
 	}
